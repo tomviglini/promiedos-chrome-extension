@@ -1,0 +1,14 @@
+{
+  "name": "promiedos-plus",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "description": "Extensión de Chrome para personalizar Promiedos",
+  "scripts": {
+    "test": "playwright test",
+    "package": "python3 scripts/empaquetar.py"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

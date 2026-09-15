@@ -1,0 +1,89 @@
+/* Stable public classes and CSS Module prefixes; no generated hashes. */
+header.header,
+.match-block__cof,
+.promotions,
+.reclama-block-1,
+:is([class^="main-header-block_greencuotas__"], [class*=" main-header-block_greencuotas__"]),
+:is([class^="main-header-block_botton-header__buttons__"], [class*=" main-header-block_botton-header__buttons__"])
+  > :is([class^="styles_badge__"], [class*=" styles_badge__"]) {
+  display: none !important;
+}
+
+/* The site's show_betting component wraps Adsage iframes in up to two divs.
+   Match only that structure, removing the banner's reserved height and flex gap. */
+iframe[src^="https://service.adsage.io/ads/get/"],
+div:has(> iframe[src^="https://service.adsage.io/ads/get/"]:only-child),
+div:has(> div:only-child > iframe[src^="https://service.adsage.io/ads/get/"]:only-child) {
+  display: none !important;
+}
+
+[data-pmf-list] {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+[data-pmf-list] > [data-pmf-hidden] {
+  order: 1 !important;
+}
+
+/* Prevent a flash before React processes the native collapse click. */
+[data-pmf-hidden] > .item-event__content {
+  display: none !important;
+}
+
+.pmf-toggle {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--green, #78ad48);
+  cursor: pointer;
+}
+
+.pmf-toggle[aria-pressed="true"] {
+  color: #c4ccc7;
+  background: #ffffff14;
+}
+
+.pmf-toggle:hover {
+  background: #ffffff24;
+}
+
+.pmf-toggle:focus-visible {
+  outline: 2px solid #b6e782;
+  outline-offset: 2px;
+}
+
+.pmf-toggle .pmf-eye-slash {
+  display: none;
+}
+
+.pmf-toggle[aria-pressed="true"] .pmf-eye-slash {
+  display: block;
+}
+
+[data-pmf-league] > :is([class^="event-header_button__"], [class*=" event-header_button__"])
+  > :is([class^="event-header_left__"], [class*=" event-header_left__"]) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+#pmf-storage-notice {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483647;
+  max-width: min(360px, calc(100vw - 32px));
+  padding: 12px 16px;
+  border: 1px solid #91bb70;
+  border-radius: 8px;
+  background: #0a2b1d;
+  color: #fff;
+  font: 14px/1.5 system-ui, sans-serif;
+}
