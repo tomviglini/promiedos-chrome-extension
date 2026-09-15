@@ -1,0 +1,115 @@
+name: Publicar release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Etiqueta existente que se publicará (por ejemplo, v1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publicar-releases
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+    steps:
+      - name: Descargar el código de la etiqueta
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: refs/tags/${{ inputs.tag || github.ref_name }}
+
+      - name: Validar la versión y generar el ZIP
+        id: paquete
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          version = json.loads(Path('manifest.json').read_text())['version']
+          if os.environ['RELEASE_TAG'] != f'v{version}':
+              raise SystemExit('La etiqueta debe coincidir con la versión del manifiesto.')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as salida:
+              salida.write(f'version={version}\n')
+          PY
+          python3 scripts/empaquetar.py
+
+      - name: Publicar el release con el ZIP y verificar la descarga
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.paquete.outputs.version }}
+        run: |
+          archivo="promiedos-plus-${VERSION}.zip"
+          sed "s/VERSIÓN/${VERSION}/g" .github/RELEASE_NOTES.md > "$RUNNER_TEMP/notas-release.md"
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "dist/$archivo" \
+              --repo "$GITHUB_REPOSITORY" \
+              --clobber
+            gh release edit "$RELEASE_TAG" \
+              --repo "$GITHUB_REPOSITORY" \
+              --verify-tag \
+              --title "Promiedos Plus ${VERSION}" \
+              --notes-file "$RUNNER_TEMP/notas-release.md"
+          else
+            gh release create "$RELEASE_TAG" "dist/$archivo" \
+              --repo "$GITHUB_REPOSITORY" \
+              --verify-tag \
+              --title "Promiedos Plus ${VERSION}" \
+              --notes-file "$RUNNER_TEMP/notas-release.md"
+          fi
+          gh release download "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --pattern "$archivo" \
+            --dir "$RUNNER_TEMP/descarga-release"
+          cmp "dist/$archivo" "$RUNNER_TEMP/descarga-release/$archivo"
+
+      # Registra el resultado en una nota Git para poder comprobarlo también por SSH.
+      # No modifica los archivos ni el historial de la rama principal.
+      - name: Registrar el resultado de la publicación
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESULTADO: ${{ steps.release.outcome }}
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+          repo = os.environ['GITHUB_REPOSITORY']
+          tag = os.environ['RELEASE_TAG']
+          resultado = {
+              'resultado': os.environ['RESULTADO'],
+              'tag': tag,
+              'ejecucion': f"https://github.com/{repo}/actions/runs/{os.environ['GITHUB_RUN_ID']}",
+          }
+          if resultado['resultado'] == 'success':
+              release = json.loads(subprocess.check_output(['gh', 'api', f'repos/{repo}/releases/tags/{tag}']))
+              repositorio = json.loads(subprocess.check_output(['gh', 'api', f'repos/{repo}']))
+              resultado.update({
+                  'url': release['html_url'],
+                  'repositorio_privado': repositorio['private'],
+                  'archivos': [{
+                      'nombre': a['name'], 'url': a['browser_download_url'],
+                      'bytes': a['size'], 'estado': a['state'],
+                      'sha256': a.get('digest'),
+                  } for a in release['assets']],
+              })
+          Path(os.environ['RUNNER_TEMP'], 'resultado-release.json').write_text(json.dumps(resultado, ensure_ascii=False, indent=2))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if git ls-remote --exit-code origin refs/notes/releases >/dev/null 2>&1; then
+            git fetch origin refs/notes/releases:refs/notes/releases
+          fi
+          git notes --ref=releases add -f -F "$RUNNER_TEMP/resultado-release.json" HEAD
+          git push origin refs/notes/releases
