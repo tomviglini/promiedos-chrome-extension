@@ -13,8 +13,8 @@ Los [releases del repositorio](https://github.com/tomviglini/promiedos-chrome-ex
 Para una versión futura, después de actualizar el número, probar y subir el código:
 
 ```sh
-git tag -a v1.0.1 -m "Promiedos Plus 1.0.1"
-git push origin v1.0.1
+git tag -a v1.0.2 -m "Promiedos Plus 1.0.2"
+git push origin v1.0.2
 ```
 
 GitHub Actions crea el release, adjunta el ZIP y comprueba que se pueda descargar. Si el release ya existe, reemplaza el ZIP del mismo nombre y actualiza las notas de instalación. Sus resultados también se guardan en `refs/notes/releases`, sin modificar los archivos de la rama principal. La visibilidad de las descargas depende de la visibilidad y los permisos del repositorio.
@@ -22,7 +22,7 @@ GitHub Actions crea el release, adjunta el ZIP y comprueba que se pueda descarga
 Si la etiqueta ya existe, también se puede publicar o actualizar su release manualmente:
 
 1. Abrí [Actions → Publicar release](https://github.com/tomviglini/promiedos-chrome-extension/actions/workflows/release.yml).
-2. Pulsá **Run workflow**, dejá seleccionada la rama `main` e ingresá la etiqueta, por ejemplo `v1.0.0`.
+2. Pulsá **Run workflow**, dejá seleccionada la rama `main` e ingresá la etiqueta, por ejemplo `v1.0.1`.
 3. Pulsá **Run workflow** y esperá a que termine. El paquete se genera con el código de esa etiqueta.
 
 GitHub Actions debe estar habilitado en el repositorio. Tanto la publicación automática como la manual generan el paquete con el código y el empaquetador de la etiqueta seleccionada. Ejecutar el flujo manualmente no cambia la etiqueta.
@@ -40,13 +40,13 @@ npm test
 npm run package
 ```
 
-Se generan el ZIP para instalación manual y `dist/promiedos-plus-1.0.0-chrome-web-store.zip`. En el panel, elegí **Agregar nuevo elemento**, seleccioná el archivo terminado en `-chrome-web-store.zip` y subilo. Ese paquete tiene `manifest.json` en la raíz del ZIP, como requiere la tienda. [Preparación del paquete](https://developer.chrome.com/docs/webstore/prepare).
+Se generan el ZIP para instalación manual y `dist/promiedos-plus-1.0.1-chrome-web-store.zip`. En el panel, elegí **Agregar nuevo elemento**, seleccioná el archivo terminado en `-chrome-web-store.zip` y subilo. Ese paquete tiene `manifest.json` en la raíz del ZIP, como requiere la tienda. [Preparación del paquete](https://developer.chrome.com/docs/webstore/prepare).
 
 ## 3. Completar la ficha
 
 - **Nombre:** Promiedos Plus.
 - **Idioma:** español.
-- **Resumen:** Personalizá Promiedos: colapsá competiciones al final y ocultá apuestas y el encabezado principal.
+- **Resumen:** Personalizá Promiedos: colapsá competiciones al final y ocultá apuestas y el encabezado de escritorio.
 - **Descripción y propósito único:** usá los textos de [tienda/FICHA.md](tienda/FICHA.md).
 - **Icono:** `icons/icon-128.png`.
 - **Imagen promocional:** `tienda/promocion-440x280.png`.
@@ -78,7 +78,7 @@ El registro de la cuenta, el pago y el envío a revisión se hacen desde tu cuen
 ## Actualizaciones
 
 1. Hacé los cambios y ejecutá las pruebas.
-2. Incrementá la versión en `manifest.json`, `package.json` y `package-lock.json`; por ejemplo, de `1.0.0` a `1.0.1`.
+2. Incrementá la versión en `manifest.json`, `package.json` y `package-lock.json`; por ejemplo, de `1.0.1` a `1.0.2`.
 3. Generá los paquetes con `npm run package` y elegí el ZIP terminado en `-chrome-web-store.zip`.
 4. Subilo como actualización del mismo elemento de Chrome Web Store y envialo a revisión.
 

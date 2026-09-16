@@ -39,6 +39,35 @@ async function visualOrder(page) {
     .map((element) => element.dataset.pmfLeague));
 }
 
+test("conserva el menú nativo en móvil y la navegación al cambiar el ancho", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await open(page);
+  const header = page.locator('header.header');
+  const menu = page.getByRole('button', { name: 'Menú', exact: true });
+  const link = page.locator('aside').getByRole('link', { name: 'Libertadores' });
+  await expect(header).toBeVisible();
+  await expect(menu).toBeVisible();
+  await expect(link).not.toBeInViewport();
+  await menu.click();
+  await expect(link).toBeInViewport();
+  await menu.click();
+  await expect(link).not.toBeInViewport();
+
+  for (const width of [768, 1280]) {
+    await page.setViewportSize({ width, height: 844 });
+    await expect(header).toBeHidden();
+    await expect(link).toBeInViewport();
+  }
+  await page.setViewportSize({ width: 767, height: 844 });
+  await expect(menu).toBeVisible();
+  await menu.focus();
+  await page.keyboard.press('Enter');
+  await expect(link).toBeInViewport();
+  await link.click();
+  await expect(page).toHaveURL(origin + '/league/test/bac');
+  await expect(menu).toBeVisible();
+});
+
 test("colapsa con el botón nativo, ordena al final y restaura sin tocar las campanas", async ({ page }) => {
   await open(page);
   await eye(page, "bac").click();
