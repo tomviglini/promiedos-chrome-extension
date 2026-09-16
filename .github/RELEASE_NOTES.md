@@ -11,7 +11,7 @@ Descargá el archivo **promiedos-plus-VERSIÓN.zip** adjunto en **Assets / Recur
 
 - Ojo junto a la campanita para colapsar competiciones y dejarlas al final.
 - Preferencias guardadas en el navegador.
-- Ocultación de apuestas y del encabezado principal.
+- Ocultación de apuestas y del encabezado principal en escritorio; conserva el menú en la vista móvil.
 - Enlaces del título y de la parte inferior de cada competición conservados.
 - Icono propio, con tamaños de 16 a 128 píxeles.
 

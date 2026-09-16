@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Promiedos Plus",
-  "version": "1.0.0",
-  "description": "Personalizá Promiedos: colapsá competiciones al final y ocultá apuestas y el encabezado principal.",
+  "version": "1.0.1",
+  "description": "Personalizá Promiedos: colapsá competiciones al final y ocultá apuestas y el encabezado de escritorio.",
   "content_scripts": [
     {
       "matches": [

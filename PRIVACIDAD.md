@@ -4,7 +4,7 @@
 
 ## Finalidad
 
-Promiedos Plus permite personalizar la visualización de Promiedos, ordenar competiciones y ocultar elementos de apuestas y el encabezado principal.
+Promiedos Plus permite personalizar la visualización de Promiedos, ordenar competiciones y ocultar elementos de apuestas y el encabezado principal en escritorio. En la vista móvil conserva el encabezado para mantener el acceso al menú.
 
 ## Datos procesados en tu navegador
 

@@ -6,7 +6,7 @@ Promiedos Plus
 
 ## Resumen
 
-Personalizá Promiedos: colapsá competiciones al final y ocultá apuestas y el encabezado principal.
+Personalizá Promiedos: colapsá competiciones al final y ocultá apuestas y el encabezado de escritorio.
 
 ## Descripción
 
@@ -14,7 +14,7 @@ Concentrate en las competiciones que te interesan cuando visitás Promiedos.
 
 Promiedos Plus agrega un ojo junto a la campanita de cada competición. Pulsalo para colapsar esa competición y dejarla al final de la lista. Su título queda visible y podés recuperarla en cualquier momento con otro clic.
 
-La extensión recuerda tu selección al recargar, cambiar de fecha o cerrar Chrome. También oculta las cuotas, los avisos y banners de apuestas, y el encabezado principal del sitio.
+La extensión recuerda tu selección al recargar, cambiar de fecha o cerrar Chrome. También oculta las cuotas, los avisos y banners de apuestas, y el encabezado principal en escritorio. En la vista móvil conserva el encabezado y su botón de menú para mantener la navegación disponible.
 
 Los enlaces del título y de la parte inferior de cada competición siguen disponibles. No necesitás una cuenta ni configurar un panel: se maneja desde los ojos de cada bloque.
 
@@ -35,11 +35,11 @@ Antes de enviar la ficha, comprobá que el repositorio sea público y que estos 
 
 ## Propósito único
 
-Personalizar la visualización de Promiedos para priorizar las competiciones que le interesan al usuario. Permite colapsar las competiciones elegidas y moverlas al final de la lista mediante un botón junto a la campanita, recordar esa selección en el navegador y ocultar los elementos de apuestas y el encabezado principal.
+Personalizar la visualización de Promiedos para priorizar las competiciones que le interesan al usuario. Permite colapsar las competiciones elegidas y moverlas al final de la lista mediante un botón junto a la campanita, recordar esa selección en el navegador y ocultar los elementos de apuestas y el encabezado en escritorio, conservando el menú en la vista móvil.
 
 ## Formulario Privacy
 
-Las siguientes respuestas describen la versión 1.0.0. Revisalas si cambia el comportamiento de la extensión.
+Las siguientes respuestas describen la versión 1.0.1. Revisalas si cambia el comportamiento de la extensión.
 
 ### Single purpose description
 
@@ -47,7 +47,7 @@ Copiá el texto de «Propósito único» de este documento.
 
 ### Host permission justification
 
-El acceso a https://www.promiedos.com.ar/* y https://promiedos.com.ar/* permite ejecutar el JavaScript y los estilos incluidos en la extensión sobre Promiedos. Se necesita para identificar los bloques de competiciones, agregar el botón de visibilidad junto a la campanita, accionar el colapsado existente, mover los bloques seleccionados al final y ocultar los elementos de apuestas y el encabezado principal. La selección se guarda en el localStorage de Promiedos y se reaplica al cargar o actualizar la página. El acceso se limita a esos dos dominios HTTPS y los datos procesados no se envían a servidores.
+El acceso a https://www.promiedos.com.ar/* y https://promiedos.com.ar/* permite ejecutar el JavaScript y los estilos incluidos en la extensión sobre Promiedos. Se necesita para identificar los bloques de competiciones, agregar el botón de visibilidad junto a la campanita, accionar el colapsado existente, mover los bloques seleccionados al final y ocultar los elementos de apuestas y el encabezado en escritorio, conservando el menú en la vista móvil. La selección se guarda en el localStorage de Promiedos y se reaplica al cargar o actualizar la página. El acceso se limita a esos dos dominios HTTPS y los datos procesados no se envían a servidores.
 
 ### Are you using remote code?
 
@@ -85,6 +85,7 @@ La política pública debe coincidir con estas declaraciones. Si modificaste el 
 2. Pulsar el ojo junto a la campanita de una competición: debe quedar colapsada al final de la lista.
 3. Recargar: la selección debe conservarse.
 4. Volver a pulsar el ojo: la competición debe expandirse y regresar a su posición.
-5. Verificar que se ocultan las apuestas y el encabezado principal; los filtros y enlaces de las competiciones permanecen disponibles.
+5. En escritorio, verificar que se ocultan las apuestas y el encabezado principal; los filtros y enlaces de las competiciones permanecen disponibles.
+6. Reducir el ancho de la ventana a menos de 768 píxeles. El encabezado debe quedar visible y su menú debe permitir abrir, cerrar y navegar. Volver a ampliar la ventana: el encabezado se oculta y la navegación lateral queda disponible.
 
 No requiere inicio de sesión. Si no hay partidos en la fecha actual, se puede elegir otra fecha desde el calendario de Promiedos.

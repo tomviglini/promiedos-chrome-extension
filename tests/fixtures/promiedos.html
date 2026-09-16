@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="es">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Integración Promiedos</title>
 <style>
   body { margin: 16px; background: #12452e; color: white; font: 14px sans-serif; }
@@ -12,7 +13,25 @@
   button { width: 24px; height: 24px; }
   button svg { width: 18px; height: 18px; }
   .item-event__content { min-height: 80px; }
+  .header__container { display: flex; align-items: center; justify-content: space-between; }
+  .header__buttons { display: none; }
+  @media (max-width: 767.98px) {
+    .header { position: relative; z-index: 100; }
+    .header__buttons { display: flex; }
+    [class*="aside_mainBlockAside__"] { position: fixed; top: 0; width: 100%; height: 100vh; z-index: 70; background: #12452e; padding-top: 64px; }
+  }
 </style>
+<header class="header">
+  <div class="header__container">
+    <a class="header__logo" href="/">Promiedos</a>
+    <div class="header__buttons">
+      <button class="header__button-menu icon-menu" aria-label="Menú" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+<aside class="aside_mainBlockAside__newhash" style="right: -120%">
+  <a href="/league/test/bac">Libertadores</a>
+</aside>
 <div class="main-header-block_botton-header__buttons__newhash">
   <button class="main-header-block_greencuotas__newhash">CUOTAS</button>
   <div class="styles_badge__newhash">Aviso cuotas</div>
@@ -21,6 +40,12 @@
 <div class="promotions"><div class="reclama-block-1">Promoción</div></div>
 <main><div class="flex-12" id="leagues"></div></main>
 <script>
+  const menuButton = document.querySelector('.header__button-menu');
+  menuButton.onclick = () => {
+    const expanded = menuButton.getAttribute('aria-expanded') !== 'true';
+    menuButton.setAttribute('aria-expanded', String(expanded));
+    document.querySelector('aside').style.right = expanded ? '0' : '-120%';
+  };
   const state = new Map();
   window.nativeClicks = { collapse: 0, sound: 0 };
   window.fixture = {
