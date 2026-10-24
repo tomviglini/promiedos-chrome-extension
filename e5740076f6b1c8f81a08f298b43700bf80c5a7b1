@@ -1,0 +1,16 @@
+{
+  "resultado": "success",
+  "tag": "v1.0.0",
+  "ejecucion": "https://github.com/tomviglini/promiedos-chrome-extension/actions/runs/40065877631",
+  "url": "https://github.com/tomviglini/promiedos-chrome-extension/releases/tag/v1.0.0",
+  "repositorio_privado": false,
+  "archivos": [
+    {
+      "nombre": "promiedos-plus-1.0.0.zip",
+      "url": "https://github.com/tomviglini/promiedos-chrome-extension/releases/download/v1.0.0/promiedos-plus-1.0.0.zip",
+      "bytes": 45063,
+      "estado": "uploaded",
+      "sha256": "sha256:5901015b1c5304cfedf3e91f572d5313a620d08d3b9d222c80d2fc7067d109ed"
+    }
+  ]
+}
