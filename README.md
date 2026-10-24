@@ -82,7 +82,7 @@ Requisitos para desarrollar: Node.js 20 o posterior. El empaquetado también req
 npm ci
 npx playwright install chromium
 npm test
-npm run package
+npm run empaquetar
 ```
 
 Las pruebas cargan la extensión real en Chromium y verifican colapsado nativo, orden visual, restauración, persistencia, sincronización entre pestañas, cambios dinámicos y ocultación de apuestas. También comprueban que el menú móvil permita abrir, cerrar y navegar, y que la navegación siga disponible al cambiar entre anchos móviles y de escritorio.

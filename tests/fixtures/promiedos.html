@@ -29,83 +29,83 @@
     </div>
   </div>
 </header>
-<aside class="aside_mainBlockAside__newhash" style="right: -120%">
+<aside class="aside_mainBlockAside__hashnuevo" style="right: -120%">
   <a href="/league/test/bac">Libertadores</a>
 </aside>
-<div class="main-header-block_botton-header__buttons__newhash">
-  <button class="main-header-block_greencuotas__newhash">CUOTAS</button>
-  <div class="styles_badge__newhash">Aviso cuotas</div>
+<div class="main-header-block_botton-header__buttons__hashnuevo">
+  <button class="main-header-block_greencuotas__hashnuevo">CUOTAS</button>
+  <div class="styles_badge__hashnuevo">Aviso cuotas</div>
 </div>
-<div class="styles_badge__unrelated" id="unrelated-badge">Otro aviso</div>
+<div class="styles_badge__ajeno" id="insignia-ajena">Otro aviso</div>
 <div class="promotions"><div class="reclama-block-1">Promoción</div></div>
-<main><div class="flex-12" id="leagues"></div></main>
+<main><div class="flex-12" id="competiciones"></div></main>
 <script>
-  const menuButton = document.querySelector('.header__button-menu');
-  menuButton.onclick = () => {
-    const expanded = menuButton.getAttribute('aria-expanded') !== 'true';
-    menuButton.setAttribute('aria-expanded', String(expanded));
-    document.querySelector('aside').style.right = expanded ? '0' : '-120%';
+  const botonMenu = document.querySelector('.header__button-menu');
+  botonMenu.onclick = () => {
+    const expandido = botonMenu.getAttribute('aria-expanded') !== 'true';
+    botonMenu.setAttribute('aria-expanded', String(expandido));
+    document.querySelector('aside').style.right = expandido ? '0' : '-120%';
   };
-  const state = new Map();
-  window.nativeClicks = { collapse: 0, sound: 0 };
-  window.fixture = {
-    render(leagues = [
-      { id: 'bac', name: 'Libertadores' },
-      { id: 'dij', name: 'Sudamericana' },
-      { id: 'bae', name: 'Liga', noLink: true },
-      { id: 'zzz', name: 'Liga' },
+  const estado = new Map();
+  window.clicsNativos = { colapsar: 0, sonido: 0 };
+  window.maqueta = {
+    renderizar(competiciones = [
+      { id: 'bac', nombre: 'Libertadores' },
+      { id: 'dij', nombre: 'Sudamericana' },
+      { id: 'bae', nombre: 'Liga', sinEnlace: true },
+      { id: 'zzz', nombre: 'Liga' },
     ]) {
-      document.getElementById('leagues').replaceChildren();
-      for (const league of leagues) {
-        const card = document.createElement('div');
-        card.className = 'unrelated match-info_itemevent__newhash';
-        card.dataset.fixtureId = league.id;
-        const model = { ...league, card, expanded: true, sound: true };
-        state.set(league.id, model);
-        document.getElementById('leagues').append(card);
-        this.paint(model);
+      document.getElementById('competiciones').replaceChildren();
+      for (const competicion of competiciones) {
+        const tarjeta = document.createElement('div');
+        tarjeta.className = 'ajena match-info_itemevent__hashnuevo';
+        tarjeta.dataset.idMaqueta = competicion.id;
+        const modelo = { ...competicion, tarjeta, expandida: true, sonido: true };
+        estado.set(competicion.id, modelo);
+        document.getElementById('competiciones').append(tarjeta);
+        this.pintar(modelo);
       }
     },
-    paint(model) {
-      const { card, id, name, noLink, expanded, sound, noBell } = model;
-      card.innerHTML = `
-        <div class="event-header_button__newhash">
-          <${noLink ? 'div' : 'a'} class="event-header_left__newhash" ${noLink ? '' : `href="/league/test/${id}"`}>
-            <img src="https://api.promiedos.com.ar/images/league/${id}/1" alt="">${name}
-          </${noLink ? 'div' : 'a'}>
-          <div class="event-header_right__newhash">
-            ${noBell ? '' : `<button data-native="sound"><svg class="lucide lucide-${sound ? 'bell' : 'bell-off'}"></svg></button>`}
-            <button data-native="collapse"><svg class="lucide lucide-chevron-down" style="transform:${expanded ? 'rotate(180deg)' : ''}"></svg></button>
+    pintar(modelo) {
+      const { tarjeta, id, nombre, sinEnlace, expandida, sonido, sinCampana } = modelo;
+      tarjeta.innerHTML = `
+        <div class="event-header_button__hashnuevo">
+          <${sinEnlace ? 'div' : 'a'} class="event-header_left__hashnuevo" ${sinEnlace ? '' : `href="/league/test/${id}"`}>
+            <img src="https://api.promiedos.com.ar/images/league/${id}/1" alt="">${nombre}
+          </${sinEnlace ? 'div' : 'a'}>
+          <div class="event-header_right__hashnuevo">
+            ${sinCampana ? '' : `<button data-nativo="sonido"><svg class="lucide lucide-${sonido ? 'bell' : 'bell-off'}"></svg></button>`}
+            <button data-nativo="colapsar"><svg class="lucide lucide-chevron-down" style="transform:${expandida ? 'rotate(180deg)' : ''}"></svg></button>
           </div>
         </div>
-        ${expanded ? '<div class="item-event__content"><span class="score">0 - 0</span><div class="match-block__cof">1.5</div></div>' : ''}`;
-      card.querySelector('[data-native="collapse"]').onclick = () => {
-        window.nativeClicks.collapse++;
-        model.expanded = !model.expanded;
-        // Rebuild the header as React can do during navigation/reconciliation.
-        this.paint(model);
+        ${expandida ? '<div class="item-event__content"><span class="score">0 - 0</span><div class="match-block__cof">1.5</div></div>' : ''}`;
+      tarjeta.querySelector('[data-nativo="colapsar"]').onclick = () => {
+        window.clicsNativos.colapsar++;
+        modelo.expandida = !modelo.expandida;
+        // Reconstruye el encabezado, como puede hacer React al navegar o reconciliar.
+        this.pintar(modelo);
       };
-      const bell = card.querySelector('[data-native="sound"]');
-      if (bell) bell.onclick = () => {
-        window.nativeClicks.sound++;
-        model.sound = !model.sound;
-        this.paint(model);
+      const campana = tarjeta.querySelector('[data-nativo="sonido"]');
+      if (campana) campana.onclick = () => {
+        window.clicsNativos.sonido++;
+        modelo.sonido = !modelo.sonido;
+        this.pintar(modelo);
       };
     },
-    soundOff() {
-      for (const model of state.values()) { model.noBell = true; this.paint(model); }
+    quitarCampanas() {
+      for (const modelo of estado.values()) { modelo.sinCampana = true; this.pintar(modelo); }
     },
-    addBanners() {
-      const outer = document.createElement('div');
-      outer.id = 'betting-banner';
-      outer.innerHTML = '<div style="min-height:120px"><iframe src="https://service.adsage.io/ads/get/?type=banner&placement=DH1"></iframe></div>';
-      document.getElementById('leagues').append(outer);
-      const single = document.createElement('div');
-      single.id = 'single-banner';
-      single.innerHTML = '<iframe src="https://service.adsage.io/ads/get/?type=banner&placement=DL2"></iframe>';
-      document.getElementById('leagues').append(single);
+    agregarBanners() {
+      const exterior = document.createElement('div');
+      exterior.id = 'banner-apuestas';
+      exterior.innerHTML = '<div style="min-height:120px"><iframe src="https://service.adsage.io/ads/get/?type=banner&placement=DH1"></iframe></div>';
+      document.getElementById('competiciones').append(exterior);
+      const unico = document.createElement('div');
+      unico.id = 'banner-unico';
+      unico.innerHTML = '<iframe src="https://service.adsage.io/ads/get/?type=banner&placement=DL2"></iframe>';
+      document.getElementById('competiciones').append(unico);
     },
   };
-  window.fixture.render();
+  window.maqueta.renderizar();
 </script>
 </html>

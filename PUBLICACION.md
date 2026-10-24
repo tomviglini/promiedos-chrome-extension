@@ -37,7 +37,7 @@ Entrá al [panel de desarrolladores](https://chrome.google.com/webstore/devconso
 npm ci
 npx playwright install chromium
 npm test
-npm run package
+npm run empaquetar
 ```
 
 Se generan el ZIP para instalación manual y `dist/promiedos-plus-1.0.1-chrome-web-store.zip`. En el panel, elegí **Agregar nuevo elemento**, seleccioná el archivo terminado en `-chrome-web-store.zip` y subilo. Ese paquete tiene `manifest.json` en la raíz del ZIP, como requiere la tienda. [Preparación del paquete](https://developer.chrome.com/docs/webstore/prepare).
@@ -79,7 +79,7 @@ El registro de la cuenta, el pago y el envío a revisión se hacen desde tu cuen
 
 1. Hacé los cambios y ejecutá las pruebas.
 2. Incrementá la versión en `manifest.json`, `package.json` y `package-lock.json`; por ejemplo, de `1.0.1` a `1.0.2`.
-3. Generá los paquetes con `npm run package` y elegí el ZIP terminado en `-chrome-web-store.zip`.
+3. Generá los paquetes con `npm run empaquetar` y elegí el ZIP terminado en `-chrome-web-store.zip`.
 4. Subilo como actualización del mismo elemento de Chrome Web Store y envialo a revisión.
 
 Cada actualización debe tener una versión mayor a la anterior. Chrome distribuye las actualizaciones publicadas a quienes instalaron desde la tienda. [Actualizar un elemento](https://developer.chrome.com/docs/webstore/update).

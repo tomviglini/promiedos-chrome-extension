@@ -1,6 +1,6 @@
-/* Stable public classes and CSS Module prefixes; no generated hashes. */
-/* Promiedos switches to its mobile menu at max-width: 767.98px.
-   Keep the original header and menu available below the desktop layout. */
+/* Clases públicas estables y prefijos de CSS Modules; ningún hash generado. */
+/* Promiedos pasa a su menú móvil con max-width: 767.98px.
+   Por debajo del diseño de escritorio se conservan el encabezado y el menú originales. */
 @media (min-width: 768px) {
   header.header {
     display: none !important;
@@ -16,8 +16,8 @@
   display: none !important;
 }
 
-/* The site's show_betting component wraps Adsage iframes in up to two divs.
-   Match only that structure, removing the banner's reserved height and flex gap. */
+/* El componente show_betting del sitio envuelve los iframes de Adsage en hasta dos div.
+   Solo se toma esa estructura, para quitar también la altura reservada del banner y su espacio flex. */
 iframe[src^="https://service.adsage.io/ads/get/"],
 div:has(> iframe[src^="https://service.adsage.io/ads/get/"]:only-child),
 div:has(> div:only-child > iframe[src^="https://service.adsage.io/ads/get/"]:only-child) {
@@ -33,7 +33,7 @@ div:has(> div:only-child > iframe[src^="https://service.adsage.io/ads/get/"]:onl
   order: 1 !important;
 }
 
-/* Prevent a flash before React processes the native collapse click. */
+/* Evita un parpadeo antes de que React procese el clic nativo de colapsar. */
 [data-pmf-hidden] > .item-event__content {
   display: none !important;
 }
